@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Public Transport Information and Optimization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #14c4df;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        h3 {
+            text-align: center;
+            text-shadow: #14c4df;
+        }
+
+        section {
+            background-color: #fff;
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007acc;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .button {
+            background-color: #007acc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #005b9e;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><b>Realtime Public Transport Information and Optimization</b></h1>
+    </header>
+    
+    <section id="data-section">
+        <h2><b>Structed Data Overview</b></h2>
+        <h3><b><U>PROJECT BY SANJAI N</U> </b></h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Route ID</th>
+                    <th>Stops</th>
+                    <th>Passengers</th>
+                    <th>Distance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>15</td>
+                    <td>300</td>
+                    <td>10 miles</td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>12</td>
+                    <td>250</td>
+                    <td>8 miles</td>
+                </tr>
+                <tr>
+                    <td>103</td>
+                    <td>10</td>
+                    <td>155</td>
+                    <td>6 miles</td>
+                </tr>
+                <tr>
+                    <td>104</td>
+                    <td>8</td>
+                    <td>100</td>
+                    <td>5 miles</td>
+                </tr>
+                <tr>
+                    <td>105</td>
+                    <td>7</td>
+                    <td>80</td>
+                    <td>4 miles</td>
+                </tr>
+                <tr>
+                    <td>106</td>
+                    <td>5</td>
+                    <td>50</td>
+                    <td>3 miles</td>
+                </tr>
+                <tr>
+                    <td>107</td>
+                    <td>1</td>
+                    <td>20</td>
+                    <td>1 miles</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                    <td>none</td>
+                </tr>
+                <!-- Add more rows for other routes -->
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="optimize-section">
+        <h2><b>Optimization</b></h2>
+        <form>
+            <label for="optimize-type">Optimization Type:</label>
+            <select id="optimize-type">
+                <option value="time">Minimize Time</option>
+                <option value="cost">Minimize Cost</option>
+            </select>
+            
+            <label for="constraints">Constraints:</label>
+            <input type="checkbox" id="constraints" name="constraints" value="constraints"> Apply Constraints
+        </form>
+        <button class="button" id="optimize-button">Optimize</button>
+    </section>
+    
+    <section id="map-section">
+        <h2>Live Bus Location Map</h2>
+        <div id="map"></div>
+    </section>
+    
+    <script>
+        // Initialize the map
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 8.0883, lng: 77.5385}, // Kanyakumari's coordinates
+                zoom: 12, // Adjust the zoom level as needed
+                mapTypeId: 'satellite' // Change the map type to satellite
+            });
+
+            // Rest of your map-related code goes here
+        }
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 8.0883, lng: 77.5385}, // Kanyakumari's coordinates
+                zoom: 12 // Adjust the zoom level as needed
+            });
+
+            // Bus markers representing source and destination
+            var sourceMarker = new google.maps.Marker({
+                position: { lat: 8.0833, lng: 77.5459 }, // Sample source location
+                map: map,
+                title: 'Source'
+            });
+
+            var destinationMarker = new google.maps.Marker({
+                position: { lat: 8.0785, lng: 77.5470 }, // Sample destination location
+                map: map,
+                title: 'Destination'
+            });
+
+            // Simulate bus movement from source to destination
+            var busMarker = new google.maps.Marker({
+                position: sourceMarker.getPosition(),
+                map: map,
+                title: 'Bus',
+                icon: {
+                    url: 'bus-icon.png', // Replace with your bus icon image URL
+                    scaledSize: new google.maps.Size(32, 32)
+                }
+            });
+
+            // Animate bus movement
+            var numSteps = 100; // Number of animation steps
+            var step = 0;
+
+            function moveBus() {
+                if (step >= numSteps) {
+                    return;
+                }
+
+                var latLng = google.maps.geometry.spherical.interpolate(
+                    sourceMarker.getPosition(),
+                    destinationMarker.getPosition(),
+                    step / numSteps
+                );
+
+                busMarker.setPosition(latLng);
+
+                step++;
+                setTimeout(moveBus, 100); // Adjust the delay as needed
+            }
+
+            moveBus();
+        }
+    </script>
+
+    <!-- Call the initMap function when the page loads -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDx6VgL9ChgWJ-I4okuNWcQwzq3p0gUY&callback=initMap"></script>
+</body>
+</html>
